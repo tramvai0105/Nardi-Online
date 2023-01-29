@@ -1,38 +1,86 @@
-.App {
-  text-align: center;
+body {
+    margin: 0;
+    padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.game {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.gui{
+    height: 100vh;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.player-img{
+    margin: auto;
+    width: 100px;
+    height: 100px;
 }
 
-.App-link {
-  color: #61dafb;
+.player-tab{
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.player-name{
+    margin: 12px 0 5px 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.name-white{
+    border: 1px solid red;
+}
+
+.name-black{
+    border: 1px solid black;
+}
+
+.bones{
+    margin-top: 95px;
+    margin-bottom: 95px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+.bone{
+    height: 45px;
+    width: 45px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: black 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.num{
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.dev-instr{
+    display: flex;
+    flex-direction: column;
 }
