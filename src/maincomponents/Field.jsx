@@ -34,14 +34,15 @@ const Field = observer(() => {
 
   const handleConnection = () =>{
     setModal(false)
-    const socket = new WebSocket("ws://localhost:5000")
+    const socket = new WebSocket("ws://billowy-chocolate-chord.glitch.me")
     board.setSocket(socket)
     board.setSessionId(params.id)
     board.setUsername(username.current.value)
+    console.log(username.current.value);
     socket.onopen = () => {
       socket.send(JSON.stringify({
         id:params.id,
-        username: username.current.value,
+        username: board.username,
         method: "connection"
       }))
     }
