@@ -1,6 +1,16 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url("../src/images/back.jpg");
+    background-size: 2000px 1000px;
+    background-repeat: no-repeat;
+}
+
+@font-face {
+    font-family: 'BlenderPro-Medium';
+    src: url('fonts/BlenderPro-Medium.eot'), url('fonts/BlenderPro-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .game {
@@ -20,8 +30,10 @@ body {
 
 .player-img{
     margin: auto;
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+    border: 3px solid #02d7f2;
 }
 
 .player-tab{
@@ -33,21 +45,22 @@ body {
 
 .player-name{
     margin: 12px 0 5px 0;
-    font-family: 'Inter';
+    font-family: 'BlenderPro-Medium';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    color: #F3E600;
+    font-size: 26px;
     line-height: 22px;
     text-align: center;
 }
 
-.name-white{
-    border: 1px solid red;
+/* .name-white{
+    border: 1px solid #ccffff;
 }
 
 .name-black{
     border: 1px solid black;
-}
+} */
 
 .bones{
     margin-top: 95px;
@@ -59,11 +72,13 @@ body {
 }
 
 .bone{
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
     margin-left: 5px;
     margin-right: 5px;
     border: black 1px solid;
+    background: radial-gradient(circle, #9C19E0 55%, 	#000D6B 100%);
+    border-radius: 6px 6px 6px 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,10 +87,11 @@ body {
 .num{
     margin: 0;
     padding: 0;
-    font-family: 'Inter';
+    font-family: 'BlenderPro-Medium';
     font-style: normal;
     font-weight: 400;
-    font-size: 28px;
+    color: #F3E600;
+    font-size: 36px;
     line-height: 22px;
     text-align: center;
 }

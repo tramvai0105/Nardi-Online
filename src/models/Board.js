@@ -80,6 +80,12 @@ class Board{
     chooseLine(num){
         this.lineischosen = true;
         this.chosenline = num;
+        let arr = this.chips.filter(chip=>chip.line == num)
+        if(arr.length == 0){
+            this.anChooseLines()
+        } else{
+            return arr[arr.length - 1].y
+        }
     }
 
     lOCheck(num){
@@ -257,7 +263,7 @@ class Board{
             return false
         }
         if(chips.length > 0 && chips[0].color == game.pc && this.checkMoveValid(num)){
-            if(this.chosenline > 0){
+            if(this.chosenline == 1){
                 this.canpickhead -= 1;
             }
             this.deleteBones(l)
@@ -347,12 +353,12 @@ class Board{
 
     init(){
         if(game.pc == "white"){
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 15; i++) {
                 this.chips.push(new Chip(i,this.linescoords[13][0], 540, 13,"black"))
                 this.chips.push(new Chip(30-i,this.linescoords[1][0], 60, 1,"white"))
         }}
         if(game.pc == "black"){
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 15; i++) {
                 this.chips.push(new Chip(i,this.linescoords[1][0], 540, 1,"black"))
                 this.chips.push(new Chip(30-i,this.linescoords[13][0], 60, 13,"white"))
         }}

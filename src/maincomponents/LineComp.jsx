@@ -1,27 +1,45 @@
-import {Rect} from 'react-konva'
+import {Circle, Rect} from 'react-konva'
 import board from '../models/Board';
 import game from "../store/gameState";
 import {observer} from "mobx-react-lite"
-import { useEffect, useMemo} from 'react'
+import React, { useEffect, useMemo, useRef} from 'react'
 import { useState } from 'react';
 
 const LineComp = observer(({num,x,y,width,height, fill, stroke}) => {
 
   const [chosen, setChosen] = useState(false)
-  const [Stroke, setStroke] = useState(stroke)
+  const [Stroke, setStroke] = useState("")
+  const [Fill, setFill] = useState("")
+  const [yC, setYC] = useState(0)
+
+  const pointer = useRef('')
+
+  // const poinerAnimation = () => {
+  //   pointer.current.to({
+  //     scaleRadius:2,
+  //     duration:2,
+  //     onFinish: ()=>{
+  //       pointer.current.to({})
+  //     }
+  //   })
+  // }
 
   useMemo(() => {
     if(chosen){
-      setStroke("red")
+      console.log(pointer);
+      // poinerAnimation()
+      setStroke("#FFF36D")
+      setFill("")
     }else{
-      setStroke("black")
+      setStroke("")
+      setFill("")
     }
   }, [chosen]);
 
   useMemo(()=>{
-    if(board.chosenline != num){
-      setChosen(false)
-    }
+    if(board.chosenline == num){
+      setChosen(true)
+    } else {setChosen(false)}
   }, [board.lineischosen])
 
   const choose = () => {
@@ -33,23 +51,32 @@ const LineComp = observer(({num,x,y,width,height, fill, stroke}) => {
         board.anChooseLines()
       }else{
         if(num != 25){
-          board.chooseLine(num)
-          setChosen(true)
+          setYC(board.chooseLine(num))
         }
       }
     }
     }
 
   return (
-    <Rect
-    onClick={()=>choose(num)}
-    x={x}
-    y={y}
-    width={width}
-    height={height}
-    fill={fill}
-    stroke={Stroke}
-    />
+    <React.Fragment>
+      <Circle
+        x={x+35} y={yC} 
+        radius={30} 
+        fill={Fill} 
+        stroke={Stroke}
+        strokeWidth={4}
+        ref={pointer}
+      />
+      <Rect
+      onClick={()=>choose(num)}
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      // fill={fill}
+      // stroke={Stroke}
+      />
+    </React.Fragment>
   );
 })
 

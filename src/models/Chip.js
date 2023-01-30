@@ -7,12 +7,12 @@ export class Chip{
         this.radius = 30
         this.color = color
         if(color==="white"){
-            this.fill="red"
+            this.fill="#ccffff"
             this.stroke="black"
         }
         if(color==="black"){
             this.fill="black"
-            this.stroke="red"
+            this.stroke="#f1daff"
         }
     }
 }

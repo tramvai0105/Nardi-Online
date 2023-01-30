@@ -1,6 +1,8 @@
 import { Stage, Layer, Image as KonvaImage} from 'react-konva'
 import fieldimg from "../images/nardi.png"
 import playerimg from "../images/playerimg.png"
+import uberblack from "../images/uberblack.jpg"
+import unterwhite from "../images/unterwhite.jpg"
 import ChipComp from './ChipComp'
 import game from "../store/gameState"
 import board from '../models/Board'
@@ -8,7 +10,7 @@ import {observer} from "mobx-react-lite"
 import { useEffect, useMemo, useState} from 'react'
 import LineComp from './LineComp'
 import PlayerTab from './PlayerTab'
-import Bones from './Bones'
+import Bone from './Bone'
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -22,6 +24,7 @@ const Field = observer(() => {
   const params = useParams()
 
   const [modal, setModal] = useState(true);
+  const [dices, setDices] = useState([])
   const username = useRef("")
 
   function restart(){
@@ -58,9 +61,7 @@ const Field = observer(() => {
           handleSit(msg);
           break
         case "start":
-          game.setTurn(msg.turn);
-          board.setBones(msg.bones);
-          board.setCanpickhead()
+          handeStart(msg);
           break
         case "move":
           handleMove(msg);
@@ -75,13 +76,21 @@ const Field = observer(() => {
     }
   }
 
+  const handeStart = (msg) =>{
+    game.setTurn(msg.turn);
+    board.setBones(msg.bones);
+    setDices(msg.bones);
+    board.setCanpickhead();
+  }
+
   const handleWin = (msg) =>{
     console.log(`Player ${msg.username} winned!!!`);
   }
 
   const handleChangeTurn = (msg) =>{
-    board.setBones(msg.bones)
-    game.setTurn(msg.turn)
+    board.setBones(msg.bones);
+    setDices(msg.bones);
+    game.setTurn(msg.turn);
   }
 
   const handleMove = (msg) => {
@@ -126,9 +135,13 @@ const Field = observer(() => {
         </Modal.Footer>
         </Modal>
         <div className='gui'>
-          <PlayerTab num={1} img={playerimg} playername={game.white_name}/>
-          <Bones firstnum={1} secondnum={5}/>
-          <PlayerTab num={2} img={playerimg} playername={game.black_name}/>
+          <PlayerTab num={1} img={unterwhite} playername={game.white_name}/>
+          <div className="bones">
+            {dices.map((bone, index)=>
+              <Bone num={bone} key={index}/>
+            )}
+          </div>
+          <PlayerTab num={2} img={uberblack} playername={game.black_name}/>
         </div>
         <Stage width={1000} height={600}>
           <Layer>
@@ -160,12 +173,12 @@ const Field = observer(() => {
             )}
           </Layer>
         </Stage>
-        <div className='dev-instr'>
+        {/* <div className='dev-instr'>
           <button onClick={()=>{board.bones = game.bones}}>Bones update</button>
           <button onClick={()=>{board.canpickhead = true}}>Pick head</button>
           <button onClick={()=>{board.changeTurn()}}>Change turn</button>
           <h6>{board.bones}</h6>
-        </div>
+        </div> */}
       </div>
   );
 })
