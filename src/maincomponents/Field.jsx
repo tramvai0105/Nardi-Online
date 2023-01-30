@@ -17,6 +17,7 @@ import Button from 'react-bootstrap/Button';
 import { ref } from 'vue'
 import { useRef } from 'react'
 import {useParams} from "react-router-dom"
+import InfoTab from './InfoTab'
 
 const Field = observer(() => {
   const img = new Image()
@@ -174,6 +175,7 @@ const Field = observer(() => {
             )}
           </Layer>
         </Stage>
+        <InfoTab/>
         {/* <div className='dev-instr'>
           <button onClick={()=>{board.bones = game.bones}}>Bones update</button>
           <button onClick={()=>{board.canpickhead = true}}>Pick head</button>

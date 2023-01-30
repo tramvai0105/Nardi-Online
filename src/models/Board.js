@@ -50,6 +50,15 @@ class Board{
         makeAutoObservable(this)
     }
 
+    getChipsQty(){
+        let arr = [
+            this.chips.filter(chip=>chip.color == "white").length,
+            this.chips.filter(chip=>chip.color == "black").length
+        ];
+        return arr;
+        
+    }
+
     setUsername(username){
         this.username = username;
     }
@@ -108,11 +117,11 @@ class Board{
         return [sum, is]
     }
 
-    getSetofMoves(){
+    getSetofMoves(line = this.chosenline){
         let arr = [];
         // [1, 1, 1, 1] = [[1, false] * 4, [2, true] * 2, [3, true], [4, ]]
         for(let i=0; i<this.bones.length;i++){
-            arr.push([this.bones[i],!this.lOCheck(this.chosenline + this.bones[i])])
+            arr.push([this.bones[i],!this.lOCheck(line + this.bones[i])])
         }
         if(this.bones.length == 2){
             let v = true;
@@ -123,7 +132,7 @@ class Board{
               }
             }
             if(v){
-                v = this.lOCheck(this.chosenline + this.getBonesSum(2))
+                v = this.lOCheck(line + this.getBonesSum(2))
             }
             arr.push([this.getBonesSum(2)[0], !v])
         }
@@ -137,12 +146,11 @@ class Board{
             }
             for (let i = 2; i < 5; i++) {
                 if(v){
-                    v = !this.lOCheck(this.chosenline + this.getBonesSum(i)[0])
+                    v = !this.lOCheck(line + this.getBonesSum(i)[0])
                 }
                 arr.push([this.getBonesSum(i)[0], v])
             }
         }
-        console.log("set of moves is: ", arr);
         let c = false
         for (let i = 0; i < arr.length; i++) {
             if(arr[i][1] == true){
@@ -154,22 +162,19 @@ class Board{
             return [];
         } else {return arr;}
     }
-    
-    // getSetOfOutMoves(l){
-    //     let arr = [];
-    //     if(l <= bones[0] || l <= bones[1] || l <= this.getBonesSum(this.bones.length)){
 
-    //     }
-    // }
+    checkSetsOfMoves(){
+        let arr = this.chips.filter(chip=>chip.color == game.pc)
+        for (let i = 0; i < arr.length; i++) {
+            if(this.getSetofMoves(arr[i].line).length > 0){return false}
+        }
+        return true;
+    }
  
     checkCanGetOut(){
         let l = 25 - this.chosenline;
         if(this.exitallowed == true){
             if(l <= this.bones[0] || l <= this.bones[1] || l <= this.getBonesSum(this.bones.length)){
-                console.log(l <= this.bones[0]);
-                console.log(l <= this.bones[1]);
-                console.log(l <= this.getBonesSum(this.bones.length));
-                console.log("chekcout is true");
                 return true;
             }
         }
@@ -196,8 +201,6 @@ class Board{
     }
 
     checkMoveValid(num){
-        console.log("from checkValid func");
-        console.log(this.exitallowed);
         if(this.chosenline == 1 && this.canpickhead == 0){
             return false
         }
@@ -210,7 +213,6 @@ class Board{
             }
         }      
         if(this.exitallowed){
-            console.log("exitallowed");
             if(!this.checkCanGetOut())
             {
                 arr = this.getSetofMoves().filter(set=>set[0]==l)
@@ -275,7 +277,7 @@ class Board{
                 chip_id:chips[0].num,
                 chip_nl:num,
             }))
-            if(this.getSetofMoves().length == 0){
+            if(this.checkSetsOfMoves()){
                 this.changeTurn()
             }
         }   
@@ -302,7 +304,6 @@ class Board{
 
     checkExitAllow(){
         let color_sort = this.chips.filter((chip)=>chip.color == game.pc)
-        console.log("from checkAllow func");
         if(color_sort.filter((chip)=>chip.line < 19).length == 0){
            this.exitallowed = true
         }

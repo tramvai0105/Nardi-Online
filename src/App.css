@@ -100,3 +100,42 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.info-tab{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    border: #9C19E0 2px solid;
+    border-radius: 10px;
+    background-color: hsla(233, 100%, 21%, 0.504);
+}
+
+.turn-info{
+    height: 200px;
+}
+
+.turn-text{
+    margin: 15px;
+    font-family: 'BlenderPro-Medium';
+    font-style: normal;
+    font-weight: 400;
+    color: #F3E600;
+    font-size: 36px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.chips-info-text{
+    margin: 15px;
+    font-family: 'BlenderPro-Medium';
+    font-style: normal;
+    font-weight: 400;
+    color: #F3E600;
+    font-size: 28px;
+    line-height: 22px;
+    text-align: center;
+}
