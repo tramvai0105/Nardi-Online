@@ -97,6 +97,7 @@ class Board{
         }
     }
 
+    // line occupation check
     lOCheck(num){
         let chips = this.chips.filter(chip=>chip.line == num)
         if(chips.length > 0){
